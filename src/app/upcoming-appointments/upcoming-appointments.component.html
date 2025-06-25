@@ -38,7 +38,7 @@
 
   <!-- Schedule Button -->
   <div class="text-center">
-    <button class="btn btn-schedule w-75 w-sm-75">+ Schedule new Appointment</button>
+    <button (click)="navigateToSchedule()"  class="btn btn-schedule w-75 w-sm-75">+ Schedule new Appointment</button>
   </div>
 
   <!-- Appointment List -->
@@ -93,7 +93,7 @@
   <!-- Bottom Tabs -->
   <div class="row text-center mt-3 pt-2 fw-bold border-top mx-0">
     <div class="col-6 border-bottom border-2 border-dark py-2">Upcoming Meetings</div>
-    <div class="col-6 py-2">Previous Meetings</div>
+    <div (click)="navigateToPreviousTab()" class="col-6 py-2">Previous Meetings</div>
   </div>
 
   <!-- Bootstrap JS -->
