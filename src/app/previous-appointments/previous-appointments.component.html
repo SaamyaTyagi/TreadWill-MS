@@ -105,23 +105,10 @@
 
   <!-- Bottom Tabs -->
   <div class="d-flex justify-content-around border-top mt-3 pt-2 fw-bold flex-wrap">
-    <div (click)="navigateToUpcomingTab()" class="py-2">Upcoming Meetings</div>
+    <div style="cursor: pointer"(click)="navigateToUpcomingTab()" class="py-2">Upcoming Meetings</div>
     <div class="py-2 border-bottom border-2 border-dark">Previous Meetings</div>
   </div>
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-  const searchInput = document.getElementById('appointmentSearch');
-  const appointments = document.querySelectorAll('.appointment-box');
-
-  searchInput.addEventListener('input', function () {
-    const term = this.value.toLowerCase();
-    appointments.forEach(appt => {
-      const text = appt.innerText.toLowerCase();
-      appt.style.display = text.includes(term) ? '' : 'none';
-    });
-  });
-</script>
+ 
 
 </body>
 </html>
