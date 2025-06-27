@@ -1,4 +1,5 @@
 /* Header bar (top yellow section) */
+/* Header bar */
 .header-bar {
   background-color: #f5b849;
   padding: 12px 16px;
@@ -6,11 +7,10 @@
   font-weight: bold;
 }
 
-/* Sub bar (brown navigation buttons) */
+/* Sub bar */
 .sub-bar {
   background-color: #a06d12;
 }
-
 .sub-bar .btn {
   color: white;
   font-weight: bold;
@@ -18,75 +18,127 @@
   border-radius: 0;
 }
 
-/* Main card section */
+/* Main appointment card */
 .card-section {
-  border-radius: 20px;
   background-color: white;
-  border: none; /* 👈 Remove border completely */
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  border: none;
 }
 
+/* Avatar */
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #343a40;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-/* File box with visual border for selected one */
+/* File box */
 .file-box {
-  background-color: #f8f9fa;
+  background-color: #f0f0f0;
   padding: 10px 15px;
   border-radius: 10px;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
-  border: 2px solid transparent;
+  font-size: 0.9rem;
 }
-/* 
-/* Highlight selected/active file */
-/* .file-box:first-of-type {
-  border: 2px solid transparent;
-  background-color: #f8f9fa;
-} */ 
 
-
-
-/* File icon spacing */
+/* File icon */
 .file-box i {
   margin-right: 10px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
-/* Activity pills (schema, assessment) */
+/* Activity pills */
 .activity-pill {
   border-radius: 10px;
   padding: 10px 15px;
-  color: white;
   margin-bottom: 10px;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Schema activity pill */
+/* Schema therapy pill */
 .activity-schema {
   background-color: #a9c9ff;
   color: #1b3c6e;
 }
 
-/* Assessment activity pill */
+/* Assessment pill */
 .activity-assessment {
   background-color: #98d1d1;
   color: #1c3f3f;
 }
 
-/* Plus (+) button */
+/* Plus button */
 .plus-btn {
-  background-color: black;
+  background-color: #4b3a20;
   color: white;
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  display: inline-flex;
-  align-items: center;
+  font-size: 14px;
+  display: flex;
   justify-content: center;
-  font-size: 16px;
+  align-items: center;
   cursor: pointer;
 }
 
-/* Avatar circle for initials */
+/* Trash icon spacing */
+.file-box .bi-trash,
+.activity-pill .bi-trash {
+  margin-left: auto;
+  font-size: 1rem;
+  color: #6c757d;
+  cursor: pointer;
+}
+
+/* Responsive layout fix */
+@media (max-width: 768px) {
+  .d-flex.justify-content-between.flex-wrap {
+    flex-direction: column;
+  }
+
+  .d-flex.justify-content-between.flex-wrap > div {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+
+  .file-box,
+  .activity-pill {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+body {
+  background-color: #f5b849;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.main-wrapper {
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.card-section {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Avatar */
 .user-avatar {
   width: 40px;
   height: 40px;
@@ -98,15 +150,77 @@
   justify-content: center;
   font-weight: bold;
 }
-.editable-title[contenteditable="true"] {
-  outline: 1px solid #ccc;
-  padding: 4px;
-  border-radius: 4px;
-  background-color: #fff;
+
+/* File and Activity boxes */
+.file-box {
+  background-color: #e9ecef;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.file-box i {
+  margin-right: 10px;
+  font-size: 1.1rem;
+}
+
+.activity-pill {
+  border-radius: 8px;
+  padding: 3px 12px;              /* Reduced padding */
+  font-size: 1.0rem;              /* Slightly smaller text */
+  display: flex;
+  flex-direction: column;         /* For stacked layout (if needed) */
+  justify-content: center;
+  align-items: flex-start;        /* Left-align text */
+  margin-bottom: 8px;
+  min-height: unset;              /* Removes any forced height if applied */
+  line-height: 1.2;               /* Tighter spacing */
+}
+
+/* Title inside pill (e.g., "Schema Therapy 1.1") */
+.activity-pill h4 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  line-height: 1.3;
+}
+
+/* Subtitle inside pill (e.g., "Introduction to safety practices") */
+.activity-pill p {
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.2;
+}
+.activity-pill .bi-trash {
+  margin-left: auto;
+  font-size: 1rem;
+  color: #6c757d;
+  cursor: pointer;
 }
 
 
+.activity-schema {
+  background-color: #a9c9ff;
+  color: #1b3c6e;
+}
 
+.activity-assessment {
+  background-color: #98d1d1;
+  color: #1c3f3f;
+}
 
-
-
+.plus-btn {
+  background-color: black;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+}

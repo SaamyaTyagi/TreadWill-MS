@@ -39,7 +39,7 @@
 
   <!-- Schedule Button -->
 <div class="text-center">
-    <button class="btn btn-schedule w-75">+ Schedule new Appointment</button>
+    <button (click)="navigateToSchedule()"  class="btn btn-schedule w-75 w-sm-75">+ Schedule new Appointment</button>
   </div>
 
   <!-- Previous Appointments Section -->
@@ -52,7 +52,9 @@
     <small class="text-muted">Today, 1st June, 2025</small>
 
     <!-- Appointment Entry - username -->
-    <div class="appointment-box d-flex align-items-center justify-content-between flex-wrap">
+    <div class="appointment-box d-flex align-items-center justify-content-between flex-wrap"
+      (click)="navigateToAppointment('username')"
+     style="cursor: pointer;">
       <div class="d-flex align-items-center">
         <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">US</div>
         <div>
@@ -66,7 +68,9 @@
     </div>
 
     <!-- Appointment Entry - username1 -->
-    <div class="appointment-box d-flex align-items-center justify-content-between flex-wrap">
+    <div class="appointment-box d-flex align-items-center justify-content-between flex-wrap"
+      (click)="navigateToAppointment('username1')"
+     style="cursor: pointer;">
       <div class="d-flex align-items-center">
         <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">US</div>
         <div>
@@ -83,7 +87,9 @@
     <small class="text-muted">31st May, 2025</small>
 
     <!-- Appointment Entry - username2 -->
-    <div class="appointment-box d-flex align-items-center justify-content-between flex-wrap">
+    <div class="appointment-box d-flex align-items-center justify-content-between flex-wrap"
+    (click)="navigateToAppointment('username2')"
+     style="cursor: pointer;">
       <div class="d-flex align-items-center">
         <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">US</div>
         <div>

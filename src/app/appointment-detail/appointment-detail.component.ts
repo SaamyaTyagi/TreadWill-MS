@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-detail',
@@ -14,4 +15,9 @@ export class AppointmentDetailComponent {
 
   meetingLink: string = 'https://meet.example.com/xyz';
   meetingLocation: string = 'Room 203, Wellness Block, Main Building';
+  constructor(private router: Router) {}
+  navigateToSchedule() {
+    this.router.navigate(['/schedule']);
+  }
+ 
 }
