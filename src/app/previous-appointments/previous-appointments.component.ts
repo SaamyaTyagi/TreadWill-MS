@@ -16,7 +16,11 @@ export class PreviousAppointmentsComponent {
   }
   navigateToAppointment(username: string) {
   this.router.navigate(['/appointment-details', username]);
-}
+ }
+  navigateToUpcomingTab() {
+    this.router.navigate(['/']);
+  }
+
 
 
 }

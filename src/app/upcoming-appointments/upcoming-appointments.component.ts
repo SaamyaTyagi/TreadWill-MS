@@ -17,4 +17,7 @@ export class UpcomingAppointmentsComponent {
   navigateToPreviousTab() {
     this.router.navigate(['/previous']);
   }
+  navigateToAppointment(username: string){
+  this.router.navigate(['/appointment-details', username]) 
+  }
 }
