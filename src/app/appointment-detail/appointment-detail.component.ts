@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -19,5 +19,34 @@ export class AppointmentDetailComponent {
   navigateToSchedule() {
     this.router.navigate(['/schedule']);
   }
+  attachedFiles: { name: string, file: File }[] = [];
+
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
+  addFile(): void {
+    (this.fileInput.nativeElement as HTMLInputElement).click();
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.attachedFiles.push({ name: file.name, file });
+    }
+    input.value = '';
+  }
+
+  removeFile(index: number): void {
+    this.attachedFiles.splice(index, 1);
+  }
+  activities: string[] = [
+  'Schema Therapy 1.1',
+  'Introduction to safety practices'
+];
+
+removeActivity(index: number): void {
+  this.activities.splice(index, 1);
+}
+
  
 }

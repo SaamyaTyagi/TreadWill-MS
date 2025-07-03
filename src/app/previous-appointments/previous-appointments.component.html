@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <meta charset="UTF-8">
@@ -12,10 +10,12 @@
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="previous-appointments.component.css">
-</head>
-<body>
+
 
   <!-- Top yellow nav bar -->
+ 
+<div class="w-100 px-0" style="max-width: 100%; margin: 0 auto;">
+
   <div class="top-bar p-2 d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-2 gap-sm-0">
 
     <div class="d-flex align-items-center">
@@ -41,67 +41,42 @@
 <div class="text-center">
     <button (click)="navigateToSchedule()"  class="btn btn-schedule w-75 w-sm-75">+ Schedule new Appointment</button>
   </div>
-
-  <!-- Previous Appointments Section -->
-  <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+<!-- Search bar -->
+ <div class="content-wrapper px-3 px-sm-4">
+<div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
   <h5 class="mb-0">Previous Appointments</h5>
-  <input type="text" id="appointmentSearch" class="form-control form-control-sm w-auto" placeholder="Search appointments...">
+  <input [(ngModel)]="searchTerm" class="form-control form-control-sm w-auto" placeholder="Search appointments...">
 </div>
 
-    <small class="text-muted">Today, 1st June, 2025</small>
+<!-- Filtered appointments grouped by date -->
+<div *ngFor="let group of filteredAppointmentsGrouped()">
+  <small class="text-muted mt-3 d-block">{{ group[0] }}</small>
 
-    <!-- Appointment Entry - username -->
-    <div class="appointment-box d-flex align-items-center justify-content-between flex-wrap"
-      (click)="navigateToAppointment('username')"
-     style="cursor: pointer;">
-      <div class="d-flex align-items-center">
-        <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">US</div>
-        <div>
-          <strong>username</strong><br>
-          <small>Title of the appointment</small>
-        </div>
+  <div *ngFor="let appt of group[1]"
+       class="appointment-box d-flex align-items-center justify-content-between flex-wrap"
+       (click)="navigateToAppointment(appt.username)"
+       style="cursor: pointer;">
+
+    <div class="d-flex align-items-center">
+      <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3"
+           style="width: 40px; height: 40px;">
+        {{ appt.initials }}
       </div>
-      <div class="text-end">
-        <div class="text-success fw-bold">online</div>
+      <div>
+        <strong>{{ appt.username }}</strong><br>
+        <small>{{ appt.title }}</small>
       </div>
     </div>
 
-    <!-- Appointment Entry - username1 -->
-    <div class="appointment-box d-flex align-items-center justify-content-between flex-wrap"
-      (click)="navigateToAppointment('username1')"
-     style="cursor: pointer;">
-      <div class="d-flex align-items-center">
-        <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">US</div>
-        <div>
-          <strong>username1</strong><br>
-          <small>Title of the appointment</small>
-        </div>
-      </div>
-      <div class="text-end">
-        <div class="text-muted fw-bold">offline</div>
-      </div>
-    </div>
-
-    <!-- Date Divider -->
-    <small class="text-muted">31st May, 2025</small>
-
-    <!-- Appointment Entry - username2 -->
-    <div class="appointment-box d-flex align-items-center justify-content-between flex-wrap"
-    (click)="navigateToAppointment('username2')"
-     style="cursor: pointer;">
-      <div class="d-flex align-items-center">
-        <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px;">US</div>
-        <div>
-          <strong>username2</strong><br>
-          <small>Title of the appointment</small>
-        </div>
-      </div>
-      <div class="text-end">
-        <div class="text-muted fw-bold">offline</div>
+    <div class="text-end">
+      <div [ngClass]="{ 'text-success': appt.status === 'online', 'text-muted': appt.status === 'offline' }"
+           class="fw-bold">
+        {{ appt.status }}
       </div>
     </div>
   </div>
+</div>
+
 
   <!-- Bottom Tabs -->
   <div class="d-flex justify-content-around border-top mt-3 pt-2 fw-bold flex-wrap">
@@ -110,6 +85,4 @@
   </div>
  
 
-</body>
-</html>
 

@@ -1,33 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
   <!-- Add this in the <head> section -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-  @media (max-width: 576px) {
-    .header-bar {
-      flex-direction: column !important;
-      align-items: stretch !important;
-      gap: 0.5rem;
-      padding: 0.5rem;
-    }
 
-    .header-bar .btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .activity-pill {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-
-    .btn {
-      font-size: 0.85rem;
-    }
-  }
-</style>
 
 
   <meta charset="UTF-8">
@@ -38,8 +12,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <!-- Custom CSS -->
   <link rel="stylesheet" href="appointment-detail.component.css">
-</head>
-<body style="background-color: #F4B740;">
+<!-- 
+<body style="background-color: #F4B740;"> -->
 
 
   <!-- Main Card -->
@@ -69,15 +43,18 @@
     <div class="mb-4">
       <div class="d-flex justify-content-between align-items-center mb-2">
         <strong>Files attached</strong>
-        <div class="plus-btn">+</div>
+        <div class="plus-btn" (click)="addFile()">+</div>
       </div>
 
-      <div class="file-box">
-        <i class="bi bi-file-earmark-pdf"></i>
-        name of the pdf attached.pdf
-        <i class="bi bi-trash ms-auto" style="cursor: pointer;"></i>
-      </div>
-    </div>
+     <div *ngFor="let file of attachedFiles; let i = index" class="file-box">
+    <i class="bi bi-file-earmark-pdf"></i>
+    {{ file.name }}
+    <i class="bi bi-trash ms-auto" style="cursor: pointer;" (click)="removeFile(i)"></i>
+  </div>
+
+  <!-- Hidden input -->
+  <input type="file" #fileInput class="d-none" (change)="onFileSelected($event)" />
+</div>
 
     <!-- Activities -->
     <div>
@@ -89,17 +66,11 @@
         </div>
       </div>
 
-      <div class="activity-pill activity-schema">
-        <small class="d-block fw-bold">Schema Therapy 1.1</small>
-        <div>Introduction to safety practices</div>
-        <i class="bi bi-trash text-secondary ms-auto delete-btn" style="cursor: pointer;"></i>
-      </div>
-
-      <div class="activity-pill activity-assessment">
-        <small class="d-block fw-bold">Assessment</small>
-        <div>Introduction to safety practices</div>
-        <i class="bi bi-trash text-secondary ms-auto delete-btn" style="cursor: pointer;"></i>
-      </div>
-    </div>
+      <div *ngFor="let activity of activities; let i = index" class="activity-box">
+    {{ activity }}
+    <i class="bi bi-trash ms-auto" style="cursor: pointer;" (click)="removeActivity(i)"></i>
   </div>
 </div>
+    </div>
+  </div>
+

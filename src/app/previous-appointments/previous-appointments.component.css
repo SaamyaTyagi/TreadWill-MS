@@ -59,3 +59,11 @@
   min-width: 220px;
   margin-top: 0.3rem;
 }
+.custom-page-wrapper {
+  max-width: 1280px;
+  width: 100%;
+}
+
+.appointment-box {
+  border-bottom: 1px solid #dee2e6;
+}
