@@ -1,21 +1,35 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AppointmentService, Appointment } from '../appointment.service';
 
 @Component({
   selector: 'app-appointment-detail',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './appointment-detail.component.html',
-  styleUrl: './appointment-detail.component.css'
+  styleUrls: ['./appointment-detail.component.css']
 
 })
-export class AppointmentDetailComponent {
+export class AppointmentDetailComponent implements OnInit{
   isOnline: boolean = true; // Set this based on actual data logic
 
-  meetingLink: string = 'https://meet.example.com/xyz';
-  meetingLocation: string = 'Room 203, Wellness Block, Main Building';
-  constructor(private router: Router) {}
+  appointment?: Appointment;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private appointmentService: AppointmentService
+  ) {}
+
+  ngOnInit(): void {
+    const username = this.route.snapshot.paramMap.get('username');
+    if (username) {
+      this.appointment = this.appointmentService.getAppointmentByUsername(username);
+      console.log('Loaded appointment:', this.appointment);
+    }
+  }
+
   navigateToSchedule() {
     this.router.navigate(['/schedule']);
   }
@@ -39,11 +53,7 @@ export class AppointmentDetailComponent {
   removeFile(index: number): void {
     this.attachedFiles.splice(index, 1);
   }
-  activities: string[] = [
-  'Schema Therapy 1.1',
-  'Introduction to safety practices'
-];
-
+activities: { name: string, description: string }[] = [];
 removeActivity(index: number): void {
   this.activities.splice(index, 1);
 }

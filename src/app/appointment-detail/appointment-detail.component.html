@@ -17,27 +17,41 @@
 
 
   <!-- Main Card -->
- <div class="main-wrapper">
+ <div class="main-wrapper" *ngIf="appointment as appt; else noAppointment">
   <div class="card card-section">
     <p class="text-muted">Today, 1st June, 2025</p>
 
     <div class="d-flex align-items-center justify-content-between mb-3">
       <div class="d-flex align-items-center gap-2">
-        <div class="user-avatar">US</div>
-        <strong class="text-dark">username</strong>
+        <div class="user-avatar">{{ appointment.username.substring(0, 2).toUpperCase() }}</div>
+        <strong class="text-dark">{{ appointment.username }}</strong>
       </div>
-      <span class="text-success fw-semibold">online</span>
+      <span
+        [ngClass]="{
+          'text-success fw-semibold': appointment.mode === 'online',
+          'text-muted fw-semibold': appointment.mode === 'offline'
+        }"
+      >
+        {{ appointment.mode }}
+      </span>
     </div>
 
     <div class="d-flex justify-content-between align-items-start mb-3">
-      <h5 class="fw-bold flex-grow-1 mb-0">Title of the appointment</h5>
+      <h5 class="fw-bold flex-grow-1 mb-0">{{ appointment.title }}</h5>
       <i class="bi bi-pencil small edit-btn" style="cursor: pointer;" (click)="navigateToSchedule()"></i>
     </div>
-    <p class="text-muted">Details about the appointment, entered when scheduling the meeting.</p>
+    <!-- <p class="text-muted">Details about the appointment, entered when scheduling the meeting.</p> -->
 
-    <p class="fw-semibold mb-3">Meeting Link:
-      <a href="https://meet.example.com/xyz" target="_blank">https://meet.example.com/xyz</a>
+    <p class="fw-semibold mb-3">
+      {{ appointment.mode === 'online' ? 'Meeting Link:' : 'Meeting Location:' }}
+      <span *ngIf="appointment.mode === 'online'">
+        <a [href]="appointment.locationOrLink" target="_blank">{{ appointment.locationOrLink }}</a>
+      </span>
+      <span *ngIf="appointment.mode === 'offline'">
+        {{ appointment.locationOrLink }}
+      </span>
     </p>
+   
 
     <!-- Files -->
     <div class="mb-4">
@@ -73,4 +87,11 @@
 </div>
     </div>
   </div>
+  <ng-template #noAppointment>
+  <div class="main-wrapper">
+    <div class="card card-section text-center">
+      <p class="text-danger">Appointment not found.</p>
+    </div>
+  </div>
+</ng-template>
 

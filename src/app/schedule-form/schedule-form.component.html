@@ -66,7 +66,7 @@
       [type]="isOnlineMode ? 'url' : 'text'"
       class="form-control rounded-pill"
       [placeholder]="isOnlineMode ? 'Enter the meeting link' : 'Enter location or select on Google Maps'"
-      *ngIf="showConditionalInput"
+      [(ngModel)]="locationOrLink"
     />
   </div>
 

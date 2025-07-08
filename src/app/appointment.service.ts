@@ -25,12 +25,7 @@ export class AppointmentService {
   console.log('updated appt data', this.appointmentData());
   }
 
-  // private appointments = signal<Appointment[]>([]);
-
-  // addAppointment(appt: Appointment) {
-  //   console.log('appt', appt);
-  //   this.appointments.update((current) => [...current, appt]); 
-  // }
-
-  // getAppointments = this.appointmentData;
+  getAppointmentByUsername(username: string): Appointment | undefined {
+    return this._appointmentData().find(appt => appt.username === username);
+  }
 }
