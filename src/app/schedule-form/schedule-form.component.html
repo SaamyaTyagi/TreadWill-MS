@@ -1,114 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Schedule Session</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Top Bar -->
+<div class="top-bar d-flex justify-content-between align-items-center">
+  <div class="d-flex align-items-center gap-2">
+    <i class="bi bi-arrow-left"></i>
+    <span>Doc’s Dashboard</span>
+  </div>
+  <div class="d-flex align-items-center icon-row">
+    <i class="bi bi-house-door"></i>
+    <i class="bi bi-person-plus"></i>
+    <i class="bi bi-bell"></i>
+    <button class="btn btn-dark btn-sm rounded-pill ms-2">Go to <i class="bi bi-link-45deg"></i></button>
+  </div>
+</div>
 
-  <!-- Bootstrap & Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+<!-- Meetings Sub Bar -->
+<div class="meetings-bar d-flex justify-content-between align-items-center">
+  <div><i class="bi bi-arrow-left me-1"></i>meetings</div>
+  <div><i class="bi bi-pencil-square"></i></div>
+</div>
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="schedule-form.component.css" />
-</head>
-<body>
-  <!-- Top Bar -->
-  <div class="top-bar d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center gap-2">
-      <i class="bi bi-arrow-left"></i>
-      <span>Doc’s Dashboard</span>
+<!-- Form Section -->
+<div class="form-section">
+  <h5>Schedule Session</h5>
+  <p class="text-muted mb-4">When do you want the session to be held?</p>
+
+  <!-- Username -->
+  <div class="mb-3">
+    <label class="form-label">Username:</label>
+    <input type="text" class="form-control rounded-pill" [(ngModel)]="username" />
+  </div>
+
+  <!-- Title -->
+  <div class="mb-3">
+    <label class="form-label">Title of meeting</label>
+    <input type="text" class="form-control rounded-pill"  [(ngModel)]="title"/>
+  </div>
+
+  <!-- Date and Time -->
+  <div class="row mb-3">
+    <div class="col-6">
+      <label class="form-label">Date:</label>
+      <input type="date" class="form-control rounded-pill" [(ngModel)]="date" />
     </div>
-    <div class="d-flex align-items-center icon-row">
-      <i class="bi bi-house-door"></i>
-      <i class="bi bi-person-plus"></i>
-      <i class="bi bi-bell"></i>
-      <button class="btn btn-dark btn-sm rounded-pill ms-2">Go to <i class="bi bi-link-45deg"></i></button>
+    <div class="col-6">
+      <label class="form-label">Time:</label>
+      <input type="time" class="form-control rounded-pill" [(ngModel)]="time" />
     </div>
   </div>
 
-  <!-- Meetings Sub Bar -->
-  <div class="meetings-bar d-flex justify-content-between align-items-center">
-    <div><i class="bi bi-arrow-left me-1"></i>meetings</div>
-    <div><i class="bi bi-pencil-square"></i></div>
+  <!-- Online / Offline -->
+  <div class="mb-3 d-flex">
+    <label class="circle-option">
+      <input type="radio" id="online" #online name="mode" value="online" (change)="toggleMode()" />
+      <span>online</span>
+    </label>
+    <label class="circle-option">
+      <input type="radio" id="offline" #offline name="mode" value="offline" (change)="toggleMode()" />
+      <span>offline</span>
+    </label>
   </div>
 
-  <!-- Form Section -->
-  <div class="form-section">
-    <h5>Schedule Session</h5>
-    <p class="text-muted mb-4">When do you want the session to be held?</p>
-
-    <!-- Username -->
-    <div class="mb-3">
-      <label class="form-label">Username:</label>
-      <input type="text" class="form-control rounded-pill" />
-    </div>
-
-    <!-- Title -->
-    <div class="mb-3">
-      <label class="form-label">Title of meeting</label>
-      <input type="text" class="form-control rounded-pill" />
-    </div>
-
-    <!-- Date and Time -->
-    <div class="row mb-3">
-      <div class="col-6">
-        <label class="form-label">Date:</label>
-        <input type="date" class="form-control rounded-pill" />
-      </div>
-      <div class="col-6">
-        <label class="form-label">Time:</label>
-        <input type="time" class="form-control rounded-pill" />
-      </div>
-    </div>
-
-    <!-- Online / Offline -->
-    <div class="mb-3 d-flex">
-      <label class="circle-option">
-        <input type="radio" name="mode" id="online" onchange="toggleMode()" />
-        <span>online</span>
-      </label>
-      <label class="circle-option">
-        <input type="radio" name="mode" id="offline" onchange="toggleMode()" />
-        <span>offline</span>
-      </label>
-    </div>
-
-    <!-- Conditional Input -->
-    <div id="conditionalInput" class="mb-3" style="display: none;"></div>
-
-    <!-- Activities -->
-    <div class="mb-3">
-      <label class="form-label">Activities assigned:</label>
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="activity-pill w-100">
-          <strong class="text-primary">Schema Therapy 1.1</strong> &nbsp;&nbsp;
-          <span>Introduction to safety practices</span>
-        </div>
-        <i class="bi bi-plus-circle ms-2"></i>
-      </div>
-    </div>
-
-    <!-- Notes -->
-    <div class="mb-4">
-      <label class="form-label">Doctor’s notes:</label>
-      <div class="position-relative">
-        <textarea class="form-control rounded" placeholder="Write your notes here..." style="padding-left: 2.5rem;"></textarea>
-        <i class="bi bi-paperclip position-absolute top-50" style="left: 10px; cursor: pointer;" onclick="document.getElementById('fileInput').click()"></i>
-        <input type="file" id="fileInput" multiple style="display: none;" onchange="showFileNames(this)" />
-      </div>
-      <div id="fileList" class="mt-2 small text-muted"></div>
-    </div>
-
-    <!-- Buttons -->
-    <button (click)="navigateToUpcomingTab()" class="btn btn-schedule">Schedule Appointment</button>
-    <button (click)="navigateToUpcomingTab()" class="btn btn-cancel">Cancel</button>
+  <!-- Conditional Input -->
+  <div class="mb-3" *ngIf="showConditionalInput">
+    <label class="form-label">{{ isOnlineMode ? 'Meeting Link:' : 'Location:' }}</label>
+    <input
+      [type]="isOnlineMode ? 'url' : 'text'"
+      class="form-control rounded-pill"
+      [placeholder]="isOnlineMode ? 'Enter the meeting link' : 'Enter location or select on Google Maps'"
+      *ngIf="showConditionalInput"
+    />
   </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Activities -->
+  <div class="mb-3">
+    <label class="form-label">Activities assigned:</label>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="activity-pill w-100">
+        <strong class="text-primary">Schema Therapy 1.1</strong> &nbsp;&nbsp;
+        <span>Introduction to safety practices</span>
+      </div>
+      <i class="bi bi-plus-circle ms-2"></i>
+    </div>
+  </div>
 
-  <!-- Custom Script -->
-  
-</body>
-</html>
+  <!-- Notes -->
+  <div class="mb-4">
+    <label class="form-label">Doctor’s notes:</label>
+    <div class="position-relative">
+      <textarea class="form-control rounded" placeholder="Write your notes here..." style="padding-left: 2.5rem;"></textarea>
+      <i class="bi bi-paperclip position-absolute top-50" style="left: 10px; cursor: pointer;" (click)="fileInput.click()"></i>
+      <input type="file" #fileInput multiple style="display: none;" (change)="showFileNames($event)" />
+    </div>
+    <div id="fileList" class="mt-2 small text-muted"></div>
+  </div>
+
+  <!-- Buttons -->
+  <button (click)="scheduleAppointment()" class="btn btn-schedule">Schedule Appointment</button>
+  <button (click)="navigateToUpcomingTab()" class="btn btn-cancel">Cancel</button>
+</div>

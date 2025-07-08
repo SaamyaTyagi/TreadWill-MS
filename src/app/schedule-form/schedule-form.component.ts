@@ -1,60 +1,79 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AppointmentService } from '../appointment.service';
+import { FormsModule } from '@angular/forms';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-schedule-form',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './schedule-form.component.html',
-  styleUrls: ['./schedule-form.component.css']  // ✅ Corrected from styleUrl → styleUrls
+  styleUrls: ['./schedule-form.component.css']  
 })
 export class ScheduleFormComponent implements AfterViewInit {
-  constructor(private router: Router) {}
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('fileList') fileList!: ElementRef<HTMLElement>;
+  @ViewChild('online') onlineRadio!: ElementRef<HTMLInputElement>;
+
+  selectedFileNames: string[] = [];
+  showConditionalInput = false;
+  isOnlineMode = false;
+  username = '';
+  title = '';
+  date = '';
+  time = '';
+  locationOrLink = '';
+
+  constructor(
+    private router: Router,
+    private appointmentService: AppointmentService,
+  ) {}
+
+
+  scheduleAppointment() {
+    this.appointmentService.updateFormData
+    ({
+      username: this.username,
+      title: this.title,
+      date: this.date,
+      time: this.time,
+      mode: this.isOnlineMode ? 'online' : 'offline',
+      locationOrLink: this.locationOrLink
+    });
+ 
+    this.router.navigate(['/']);
+    // this.router.navigate(['/upcoming-appointments']);
+  }
+
+  showFileNames(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.selectedFileNames = Array.from(input.files).map(file => file.name);
+    }
+  }
 
   navigateToUpcomingTab() {
     this.router.navigate(['/']);
   }
 
   ngAfterViewInit(): void {
-    // File upload handler
-    const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-    const fileList = document.getElementById('fileList') as HTMLElement;
+    const input = this.fileInput.nativeElement;
+    const list = this.fileList.nativeElement;
 
-    fileInput?.addEventListener('change', () => {
-      fileList.innerHTML = '';
-      Array.from(fileInput.files || []).forEach(file => {
+    input.addEventListener('change', () => {
+      list.innerHTML = '';
+      Array.from(input.files || []).forEach(file => {
         const div = document.createElement('div');
         div.textContent = '📄 ' + file.name;
-        fileList.appendChild(div);
+        list.appendChild(div);
       });
-    });
-
-    // Mode toggle handler
-    const onlineRadio = document.getElementById('online') as HTMLInputElement;
-    const offlineRadio = document.getElementById('offline') as HTMLInputElement;
-
-    [onlineRadio, offlineRadio].forEach(radio => {
-      radio?.addEventListener('change', () => this.toggleMode());
     });
   }
 
   toggleMode(): void {
-    const isOnline = (document.getElementById('online') as HTMLInputElement)?.checked;
-    const container = document.getElementById('conditionalInput') as HTMLElement;
-
-    container.innerHTML = '';
-    container.style.display = 'block';
-
-    if (isOnline) {
-      container.innerHTML = `
-        <label class="form-label">Meeting Link:</label>
-        <input type="url" class="form-control rounded-pill" placeholder="Enter the meeting link" />
-      `;
-    } else {
-      container.innerHTML = `
-        <label class="form-label">Location:</label>
-        <input type="text" class="form-control rounded-pill" placeholder="Enter location or select on Google Maps" />
-      `;
-    }
+    this.isOnlineMode = this.onlineRadio.nativeElement.checked;
+    this.showConditionalInput = true;
   }
 }
