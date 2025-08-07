@@ -76,4 +76,23 @@ export class ScheduleFormComponent implements AfterViewInit {
     this.isOnlineMode = this.onlineRadio.nativeElement.checked;
     this.showConditionalInput = true;
   }
+  reminderOptions = [
+  { value: '1', label: '1 hour before' },
+  { value: '3', label: '3 hours before' },
+  { value: '6', label: '6 hours before' },
+  { value: '12', label: '12 hours before' },
+  { value: '24', label: '24 hours before' }
+];
+
+selectedReminders: string[] = [];
+toggleReminder(value: string) {
+    const index = this.selectedReminders.indexOf(value);
+    if (index > -1) {
+      this.selectedReminders.splice(index, 1); // unselect
+    } else {
+      this.selectedReminders.push(value); // select
+    }
+  }
 }
+
+

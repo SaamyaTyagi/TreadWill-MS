@@ -27,34 +27,52 @@
 <!-- Appointment List -->
 <div class="container">
   <h5>Upcoming Appointments</h5>
-  <small class="text-muted">Today, 1st June, 2025</small>
+  <!-- <small class="text-muted">Today, 1st June, 2025</small>
+  <small class="text-muted" *ngIf="appointments.length > 0">
+  {{ appointments[0].date | date: 'fullDate' }}
+</small>
+<small class="text-muted" *ngIf="appointments.length === 0">
+  No upcoming appointments
+</small> -->
+
+
 
   <!-- Appointment Entry -->
 
-  <div *ngFor="let appt of appointments" 
-     class="appointment-box d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between mb-3"
-     (click)="navigateToAppointment(appt.username)"
-     style="cursor: pointer;">
-  
-  <div class="d-flex align-items-center mb-2 mb-sm-0">
-    <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3"
-         style="width: 40px; height: 40px;">
-      {{ appt.username.substring(0, 2).toUpperCase() }}
-    </div>
-    <div>
-      <strong>{{ appt.username }}</strong><br />
-      <small>{{ appt.title }}</small>
-    </div>
-  </div>
+  <!-- Grouped Appointments by Date -->
+<div *ngIf="appointments.length > 0">
+  <div *ngFor="let dateGroup of appointmentsByDate | keyvalue">
+    <h6 class="text-muted">{{ dateGroup.key | date: 'fullDate'  }}</h6>
 
-  <div class="text-end">
-    <div [ngClass]="{
-          'text-success fw-bold': appt.mode === 'online',
-          'text-muted fw-bold': appt.mode === 'offline'
-        }">{{ appt.mode }}</div>
-    <div class="appt-time">{{ appt.time }}</div>
+    <div *ngFor="let appt of dateGroup.value" 
+         class="appointment-box d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between mb-3"
+         (click)="navigateToAppointment(appt.username)"
+         style="cursor: pointer;">
+      
+      <div class="d-flex align-items-center mb-2 mb-sm-0">
+        <div class="rounded-circle bg-dark text-white d-flex justify-content-center align-items-center me-3"
+             style="width: 40px; height: 40px;">
+          {{ appt.username.substring(0, 2).toUpperCase() }}
+        </div>
+        <div>
+          <strong>{{ appt.username }}</strong><br />
+          <small>{{ appt.title }}</small>
+        </div>
+      </div>
+
+      <div class="text-end">
+        <div [ngClass]="{
+              'text-success fw-bold': appt.mode === 'online',
+              'text-muted fw-bold': appt.mode === 'offline'
+            }">{{ appt.mode }}</div>
+        <div class="appt-time">{{ appt.time }}</div>
+      </div>
+    </div>
   </div>
 </div>
+<small class="text-muted" *ngIf="appointments.length === 0">
+  No upcoming appointments
+</small>
 
 
   
