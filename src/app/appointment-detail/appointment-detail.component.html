@@ -19,7 +19,7 @@
   <!-- Main Card -->
  <div class="main-wrapper" *ngIf="appointment as appt; else noAppointment">
   <div class="card card-section">
-    <p class="text-muted">Today, 1st June, 2025</p>
+    <p class="text-muted">{{ appointment.date | date: 'fullDate' }} </p>
 
     <div class="d-flex align-items-center justify-content-between mb-3">
       <div class="d-flex align-items-center gap-2">
