@@ -63,7 +63,7 @@
       <div class="text-end">
         <div [ngClass]="{
               'text-success fw-bold': appt.mode === 'online',
-              'text-muted fw-bold': appt.mode === 'in-person'
+              'text-muted fw-bold': appt.mode === 'offline'
             }">{{ appt.mode }}</div>
         <div class="appt-time">{{ appt.time }}</div>
       </div>
