@@ -44,7 +44,7 @@
 <!-- Search bar -->
  <div class="content-wrapper px-3 px-sm-4">
 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-  <h5 class="mb-0">Previous Appointments</h5>
+  <h5 class="mb-0"> </h5>
   <input [(ngModel)]="searchTerm" class="form-control form-control-sm w-auto" placeholder="Search appointments...">
 </div>
 
@@ -79,10 +79,13 @@
 
 
   <!-- Bottom Tabs -->
-  <div class="d-flex justify-content-around border-top mt-3 pt-2 fw-bold flex-wrap">
+  <!-- <div class="d-flex justify-content-around border-top mt-3 pt-2 fw-bold flex-wrap">
     <div style="cursor: pointer"(click)="navigateToUpcomingTab()" class="py-2">Upcoming Meetings</div>
-    <div class="py-2 border-bottom border-2 border-dark">Previous Meetings</div>
-  </div>
+    <div class="col-6 border-bottom border-2 border-dark py-2">Previous Meetings</div>
+  </div> -->
  
-
+<div class="row text-center mt-3 pt-2 fw-bold border-top mx-0">
+  <div style="cursor: pointer" (click)="navigateToUpcomingTab()" class="col-6 py-2">Upcoming Meetings</div>
+  <div class="col-6 border-bottom border-2 border-dark py-2">Previous Meetings</div>
+</div>
 

@@ -26,7 +26,7 @@
 
 <!-- Appointment List -->
 <div class="container">
-  <h5>Upcoming Appointments</h5>
+  <h5> </h5>
   <!-- <small class="text-muted">Today, 1st June, 2025</small>
   <small class="text-muted" *ngIf="appointments.length > 0">
   {{ appointments[0].date | date: 'fullDate' }}
@@ -63,7 +63,7 @@
       <div class="text-end">
         <div [ngClass]="{
               'text-success fw-bold': appt.mode === 'online',
-              'text-muted fw-bold': appt.mode === 'offline'
+              'text-muted fw-bold': appt.mode === 'in-person'
             }">{{ appt.mode }}</div>
         <div class="appt-time">{{ appt.time }}</div>
       </div>

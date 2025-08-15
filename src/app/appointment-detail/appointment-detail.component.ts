@@ -27,6 +27,7 @@ export class AppointmentDetailComponent implements OnInit{
     if (username) {
       this.appointment = this.appointmentService.getAppointmentByUsername(username);
       console.log('Loaded appointment:', this.appointment);
+      
     }
   }
 
